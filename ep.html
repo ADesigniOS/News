@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="alternate" type="application/rss+xml" title="Sileo" href="/feed.xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<link rel="icon" type="image/png" href="uef.png">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<link href="main.css" rel="stylesheet">
+
+
+<title>Exploit Webkit iOS 12</title>
+<meta property="og:title" content="Exploit Webkit iOS 12">
+<meta property="og:site_name" content="Sileo">
+<meta name="twitter:title" content="Exploit Webkit iOS 12">    
+    </head>
+    <body>
+        <div class="header basic">
+    <div>
+        <a href="news.html" class="back-button"><i class="fas fa-chevron-left"></i> <span><span class="d-none d-sm-inline">Back to </span>News</span></a>
+        <img width="50" src="logo.png" />
+        <a class="page-title" href="#">Exploit Webkit iOS 12</a>
+    </div>
+</div>
+<div id="content">
+    <div class="container page article">
+    <article>
+        <h1>What is Webkit?</h1>
+        <div class="content"><p>WebKit is an open source application framework that provides the components needed to build a web browser.</p>
+
+<h2 id="whats-new">Exploiting jit vulnerability</h2>
+
+<p>
+ There are two mechanisms for type checking in the JIT: runtime type checks (CheckStructure) and Watchpoint. The latter is often used when an object from an outer scope is referenced. Watchpoints essentially trigger a callback once the watched object is modified, in which case the compiled code is discarded. However, watching single objects isn't possible. Instead, if the structure of the object has never transitioned before (is a leaf), then a watchpoint is installed to fire as soon as the structure transitions. This is used as a heursitic for the object itself changing. The problem now is that the fast path for property deletions doesn't trigger these watchpoints (because no structure transition is performed). As such, type confusions are possible afterwards.</p>
+ <li>Example:</li>
+ * var o = [1.1, 2.2, 3.3, 4.4];<br />
+ * // o is now an object with structure ID 122.<br />
+ * o.property = 42;<br />
+ * // o is now an object with structure ID 123. The structure is a leaf (has never transitioned)<br />
+ * function helper() {<br />
+ *     return o[0];<br />
+ * }
+ * jitCompile(helper);<br />
+ * // In this case, the JIT compiler will choose to use a watchpoint instead of runtime checks<br />
+ * // when compiling the helper function. As such, it watches structure 123 for transitions.<br />
+ * delete o.property;<br />
+ * // o now "went back" to structure ID 122. The watchpoint was not fired.<br />
+ * o[0] = {};<br />
+ * // o now transitioned from structure ID 122 to structure ID 124 (due to the array mode change).<br />
+ * // The watchpoint still didn't fire.<br />
+ * return helper();         // type confusion -> addrof<br /><br />
+ <img width="300" src="img/image3.png" />
+<h2 id="compatibility">Exploiting Webkit vulnerability</h2>
+<p>We still can't publish Webkit exploits, until Apple fixes them.</p>
+
+<p>We are sorry, because the vulnerability could lead to an attack by hackers</p>
+
+<h2 id="support">Support</h2>
+
+<p>Devices running A12 will not be able to Jailbreak Me. </p>
+<p>Jailbreak Me only works on iOS <strong>iOS 11.4-12.0.1.</strong></p>
+
+<h2 id="source-code">Source Code</h2>
+
+<p>The source code is private until Apple fixes it.</p>
+
+<hr />
+
+<p>Thank you for your interest in UEF! We hope you like Jailbreak as much as we can and wait for it to start!</p>
+</div>
+    </article>
+    <br>
+    <a href="news.html">« Back to News</a>
+</div>
+</div>
+        <footer>
+    <ul class="section links">
+        
+        <li><a href="index.htm">Home</a></li>
+        
+        <li><a href="news.htm">News</a></li>
+        
+        <li><a href="dl.html">Developed</a></li>
+        
+    </ul>
+    <div class="section">
+        <p>© UEF Team</p>
+        <p class="credit">Designed & Developed by <a href="https://www.twitter.com/A_DesigniOS">A_Design (YangCheeSen)</a> & <a href="https://www.twitter.com/H_PW2NTP">H_PW2NTP</a>.</p>      
+    </div>
+</footer>
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        
+        
+        
+        
+    </body>
+</html>
